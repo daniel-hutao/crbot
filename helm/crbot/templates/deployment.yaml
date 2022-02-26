@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: crbot
+  labels:
+    app: crbot
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: crbot
+  template:
+    metadata:
+      labels:
+        app: crbot
+    spec:
+      containers:
+      - name: crbot
+        image: "exploitht/crbot:{{ .Chart.AppVersion }}"
+        ports:
+        - containerPort: 8080
