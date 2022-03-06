@@ -1,17 +1,27 @@
 package main
 
 import (
-	"github.com/gin-gonic/gin"
+	"sync"
 
-	"github.com/daniel-hutao/crbot/internal/pkg/album"
+	"github.com/daniel-hutao/crbot/internal/pkg/ferry"
+	"github.com/daniel-hutao/crbot/internal/pkg/fsbot"
+	"github.com/daniel-hutao/crbot/internal/pkg/ghbot"
 )
 
 func main() {
-	router := gin.Default()
+	var wg sync.WaitGroup
 
-	router.GET("/albums", album.GetAlbums)
-	router.GET("/albums/:id", album.GetAlbumByID)
-	router.POST("/albums", album.PostAlbums)
+	fsBot := fsbot.NewBot()
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		fsBot.Run()
+	}()
 
-	router.Run("localhost:8080")
+	err := ghbot.GetMsg(ferry.GlobalMessageChan)
+	if err != nil {
+		panic(err)
+	}
+
+	wg.Wait()
 }

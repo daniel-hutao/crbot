@@ -5,18 +5,11 @@ BASEDIR = $(shell pwd)
 help:
 		@grep -E '^[a-zA-Z0-9_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
-.PHONY: install
-install: ## Install dependencies
-		@go mod download
-		@go mod vendor
-
-.PHONY: dev
-dev: ## Run with Dev
-		@go run cmd/crbot/main.go
+fmt: ## Run 'go fmt' & goimports against code.
+	goimports -local="github.com/daniel-hutao/crbot" -d -w cmd
+	goimports -local="github.com/daniel-hutao/crbot" -d -w internal
+	go fmt ./...
 
 .PHONY: build
-build: ## Build todomvc
-		@go build -o build/crbot cmd/crbot/main.go
-
-clean: ### Remove build dir
-		@rm -rf build
+build: fmt ## Build crbot
+	go build -o crbot cmd/crbot/main.go
