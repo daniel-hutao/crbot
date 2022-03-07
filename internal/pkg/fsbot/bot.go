@@ -35,11 +35,19 @@ var msgTpl = `
 						},
 						{
 							"tag": "text",
-							"text": " {{.Title}}\n\n"
+							"text": " {{.Title}}\n"
+						},
+						{
+							"tag": "text",
+							"text": "Author: {{.User}}\n"
+						},
+						{
+							"tag": "text",
+							"text": "Requested Reviewer(s): {{range .RequestedReviewers}}{{.}} {{end}}\n\n"
 						},{{end}}
 						{
 							"tag": "text",
-							"text": "{{.Now}} now is."
+							"text": "Now: {{.Now}}"
 						}
 					]
 				]

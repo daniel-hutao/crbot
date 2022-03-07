@@ -1,10 +1,14 @@
 package ferry
 
+type Reviewer string
+
 type Data struct {
-	Title     string
-	URL       string
-	Number    int
-	CreatedAt string
+	Title              string
+	User               string
+	URL                string
+	Number             int
+	CreatedAt          string
+	RequestedReviewers []Reviewer
 }
 
 type Datas []Data

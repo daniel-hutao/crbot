@@ -1,10 +1,10 @@
 package main
 
 import (
+	"github.com/daniel-hutao/crbot/internal/pkg/fsbot"
 	"sync"
 
 	"github.com/daniel-hutao/crbot/internal/pkg/ferry"
-	"github.com/daniel-hutao/crbot/internal/pkg/fsbot"
 	"github.com/daniel-hutao/crbot/internal/pkg/ghbot"
 )
 
